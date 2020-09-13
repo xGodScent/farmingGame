@@ -1,0 +1,65 @@
+// [GAME MECHANICS]
+		crop1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				if (tool == "seeds") {
+					
+					if (crop1.getIcon() == dirt_texture) {
+						
+						crop1.setIcon(dirt_seeds_texture);
+						
+					}
+					
+					
+					else if (crop1.getIcon() == dirt_texture_watered) {
+						
+						crop1.setIcon(dirt_seeds_texture_watered);
+						
+					}					
+					
+					tags.add("seed_planted=true");
+					tags.add("stage=0");
+					
+				}
+					
+				else if (tool == "water" && !tags.contains("watered=true")) {
+					
+					ImageIcon newTexture = new ImageIcon(String.valueOf(crop1.getIcon()).replace(".png", "_watered.png"));
+					crop1.setIcon(newTexture);
+					
+					tags.add("watered=true");
+					
+				}
+					
+				else {
+					
+					System.out.println("crop1_tags: " + tags);
+					
+				}
+				
+				// code to save tags to file
+				try {
+					
+					FileWriter crop1Data = new FileWriter(".\\dataStore\\crop1.dat");
+
+					for (String toFile: tags) {
+						
+						crop1Data.write(toFile + System.lineSeparator());
+						
+					}
+					
+					crop1Data.close();	
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				tool = "None";
+				showToolLabel.setText("Tool Selected: " + tool);
+				btnPlantSeed.setSelected(false);
+				applyWater.setSelected(false);
+				fertilizePlant.setSelected(false);
+				
+			}
+		});
