@@ -31,7 +31,6 @@ public class gameLoadSave {
 
 			}
 			
-			System.out.println(cropData);
 			return cropData;
 			
 		}

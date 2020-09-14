@@ -243,7 +243,7 @@ public class gameMain extends JFrame {
 				
 				crop = 1;
 				
-				if (tool == "seeds" && !tags.contains("seed_planted=true")) {
+				if (tool == "seeds" && gameLoadSave.load(crop, current_save).contains("seed_planted=false")) {
 					
 					if (crop1.getIcon() == dirt_texture) {
 						
@@ -251,7 +251,7 @@ public class gameMain extends JFrame {
 						
 					}
 					
-					else if (tags.contains("watered=true")) {
+					else if (gameLoadSave.load(crop, current_save).contains("watered=true")) {
 						
 						crop1.setIcon(dirt_seeds_texture_watered);
 						
@@ -425,32 +425,37 @@ public class gameMain extends JFrame {
 		timeLabel.setBounds(233, 49, 105, 45);
 		contentPane.add(timeLabel);
 		
+		JButton btnNewButton = new JButton("Reload");
+		btnNewButton.setBounds(613, 49, 100, 23);
+		contentPane.add(btnNewButton);
+		
 		JLabel bgLabel = new JLabel("");
 		bgLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bgLabel.setIcon(new ImageIcon(".\\textures\\bg.png"));
 		bgLabel.setBounds(0, -268, 804, 893);
 		contentPane.add(bgLabel);	
 		
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent key) {
+	
+		// handles game update from save files
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				
-				if (key.getKeyCode() == KeyEvent.VK_R) {
+				for (int crop = 1; crop != 5; crop++) {
 					
-					gameLoadSave.load(1, current_save);
-					gameLoadSave.load(2, current_save);
-					gameLoadSave.load(3, current_save);
-					gameLoadSave.load(4, current_save);
+					System.out.println(gameLoadSave.load(crop, current_save).get(0));
+	
+					if (gameLoadSave.load(crop, current_save).contains("seed_planted=true")) {
+			    		
+						crop1.setIcon(dirt_seeds_texture);
+			    		
+			    	} 
 					
-					System.out.println(gameLoadSave.load(1, current_save));
 					
 				}
 				
-				else {
-					
-					System.out.println(gameLoadSave.load(2, current_save));
-					
-				}
+				
+				
+				
 				
 			}
 		});

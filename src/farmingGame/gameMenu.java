@@ -63,7 +63,7 @@ public class gameMenu extends JFrame {
 		loadSaveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				JOptionPane.showMessageDialog(null, "Save data has been retrieved! Please press F5 in game to apply save data!");
+				JOptionPane.showMessageDialog(null, "Save data has been retrieved! Please click the 'reload' button.");
 							
 			}
 		});
