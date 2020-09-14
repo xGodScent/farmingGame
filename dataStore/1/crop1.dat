@@ -2,3 +2,4 @@ seed_planted=false
 stage=0
 sick=false
 watered=false
+time_left=

@@ -66,6 +66,12 @@ public class gameMain extends JFrame {
 	static int current_save = -1;
 	static int crop = -1;
 	
+	// (in seconds)
+	int crop1TimeLeft = 256;
+	int crop2TimeLeft = 256;
+	int crop3TimeLeft = 256;
+	int crop4TimeLeft = 256;
+	
 	
 	// [WINDOW]
 	public gameMain() {
@@ -263,7 +269,7 @@ public class gameMain extends JFrame {
 					
 				}
 					
-				else if (tool == "water" && gameLoadSave.load(1, current_save).contains("watered=false")) {
+				else if (tool == "water" && gameLoadSave.load(crop, current_save).contains("watered=false")) {
 					
 					ImageIcon newTexture = new ImageIcon(String.valueOf(crop1.getIcon()).replace(".png", "_watered.png"));
 					crop1.setIcon(newTexture);
@@ -285,28 +291,42 @@ public class gameMain extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				if (crop2.getIcon() == dirt_texture) {
+				crop = 2;
+				
+				if (tool == "seeds" && gameLoadSave.load(crop, current_save).contains("seed_planted=false")) {
 					
-					if (tool == "seeds") {
-						
-						tool = "None";
-						showToolLabel.setText("Tool Selected: " + tool);
-						btnPlantSeed.setSelected(false);
+					if (crop2.getIcon() == dirt_texture) {
 						
 						crop2.setIcon(dirt_seeds_texture);
 						
 					}
 					
-				}
-				else {
+					else if (gameLoadSave.load(crop, current_save).contains("watered=true")) {
+						
+						crop2.setIcon(dirt_seeds_texture_watered);
+						
+					}					
+									
+					gameLoadSave.save("seed_planted=true", crop, current_save);
+					gameLoadSave.save("stage=0", crop, current_save);
+					gameLoadSave.save("sick=false", crop, current_save);
 					
-					tool = "None";
-					showToolLabel.setText("Tool Selected: " + tool);
-					btnPlantSeed.setSelected(false);
-					applyWater.setSelected(false);
-					fertilizePlant.setSelected(false);
-					
 				}
+					
+				else if (tool == "water" && gameLoadSave.load(crop, current_save).contains("watered=false")) {
+					
+					ImageIcon newTexture = new ImageIcon(String.valueOf(crop2.getIcon()).replace(".png", "_watered.png"));
+					crop2.setIcon(newTexture);
+					
+					gameLoadSave.save("watered=true", crop, current_save);
+					
+				}			
+				
+				tool = "None";
+				showToolLabel.setText("Tool Selected: " + tool);
+				btnPlantSeed.setSelected(false);
+				applyWater.setSelected(false);
+				fertilizePlant.setSelected(false);
 				
 			}
 		});
@@ -315,28 +335,42 @@ public class gameMain extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				if (crop3.getIcon() == dirt_texture) {
+				crop = 3;
+				
+				if (tool == "seeds" && gameLoadSave.load(crop, current_save).contains("seed_planted=false")) {
 					
-					if (tool == "seeds") {
-						
-						tool = "None";
-						showToolLabel.setText("Tool Selected: " + tool);
-						btnPlantSeed.setSelected(false);
+					if (crop3.getIcon() == dirt_texture) {
 						
 						crop3.setIcon(dirt_seeds_texture);
 						
 					}
 					
-				}
-				else {
+					else if (gameLoadSave.load(crop, current_save).contains("watered=true")) {
+						
+						crop3.setIcon(dirt_seeds_texture_watered);
+						
+					}					
+									
+					gameLoadSave.save("seed_planted=true", crop, current_save);
+					gameLoadSave.save("stage=0", crop, current_save);
+					gameLoadSave.save("sick=false", crop, current_save);
 					
-					tool = "None";
-					showToolLabel.setText("Tool Selected: " + tool);
-					btnPlantSeed.setSelected(false);
-					applyWater.setSelected(false);
-					fertilizePlant.setSelected(false);
-					
 				}
+					
+				else if (tool == "water" && gameLoadSave.load(crop, current_save).contains("watered=false")) {
+					
+					ImageIcon newTexture = new ImageIcon(String.valueOf(crop3.getIcon()).replace(".png", "_watered.png"));
+					crop3.setIcon(newTexture);
+					
+					gameLoadSave.save("watered=true", crop, current_save);
+					
+				}			
+				
+				tool = "None";
+				showToolLabel.setText("Tool Selected: " + tool);
+				btnPlantSeed.setSelected(false);
+				applyWater.setSelected(false);
+				fertilizePlant.setSelected(false);
 				
 			}
 		});
@@ -345,26 +379,42 @@ public class gameMain extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				if (crop4.getIcon() == dirt_texture) {
+				crop = 4;
+				
+				if (tool == "seeds" && gameLoadSave.load(crop, current_save).contains("seed_planted=false")) {
 					
-					if (tool == "seeds") {
-						
-						tool = "None";
-						showToolLabel.setText("Tool Selected: " + tool);
-						btnPlantSeed.setSelected(false);
+					if (crop4.getIcon() == dirt_texture) {
 						
 						crop4.setIcon(dirt_seeds_texture);
 						
 					}
 					
-				}
-				else {
+					else if (gameLoadSave.load(crop, current_save).contains("watered=true")) {
+						
+						crop4.setIcon(dirt_seeds_texture_watered);
+						
+					}					
+									
+					gameLoadSave.save("seed_planted=true", crop, current_save);
+					gameLoadSave.save("stage=0", crop, current_save);
+					gameLoadSave.save("sick=false", crop, current_save);
 					
-					tool = "None";
-					showToolLabel.setText("Tool Selected: " + tool);
-					btnPlantSeed.setSelected(false);
-					
 				}
+					
+				else if (tool == "water" && gameLoadSave.load(crop, current_save).contains("watered=false")) {
+					
+					ImageIcon newTexture = new ImageIcon(String.valueOf(crop4.getIcon()).replace(".png", "_watered.png"));
+					crop4.setIcon(newTexture);
+					
+					gameLoadSave.save("watered=true", crop, current_save);
+					
+				}			
+				
+				tool = "None";
+				showToolLabel.setText("Tool Selected: " + tool);
+				btnPlantSeed.setSelected(false);
+				applyWater.setSelected(false);
+				fertilizePlant.setSelected(false);
 				
 			}
 		});		
@@ -388,7 +438,6 @@ public class gameMain extends JFrame {
 		openMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-		        // calls function from gameMenu.java
 				gameMenu.main(null);
 				
 			}
@@ -425,9 +474,9 @@ public class gameMain extends JFrame {
 		timeLabel.setBounds(233, 49, 105, 45);
 		contentPane.add(timeLabel);
 		
-		JButton btnNewButton = new JButton("Reload");
-		btnNewButton.setBounds(613, 49, 100, 23);
-		contentPane.add(btnNewButton);
+		JButton reloadButton = new JButton("Reload");
+		reloadButton.setBounds(613, 49, 100, 23);
+		contentPane.add(reloadButton);
 		
 		JLabel slotLabel = new JLabel("Save Slot: -1");
 		slotLabel.setForeground(Color.WHITE);
@@ -443,27 +492,72 @@ public class gameMain extends JFrame {
 		
 	
 		// handles game update from save files
-		btnNewButton.addActionListener(new ActionListener() {
+		reloadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				for (int crop = 1; crop != 5; crop++) {
-					
-					System.out.println(gameLoadSave.load(crop, current_save).get(0));
-	
-					if (gameLoadSave.load(crop, current_save).contains("seed_planted=true")) {
+				slotLabel.setText("Save Slot: " + current_save);
+				
+				crop = 1;
+				
+				// seed_planted
+				if (gameLoadSave.load(crop, current_save).contains("seed_planted=true")) {
 			    		
-						crop1.setIcon(dirt_seeds_texture);
+					crop1.setIcon(dirt_seeds_texture);
+						
+					if (gameLoadSave.load(crop, current_save).contains("watered=true")) {
+				    		
+						crop1.setIcon(dirt_seeds_texture_watered);
+				    		
+				    } 					
+												
+			    } 
+				// stage
+				else if (gameLoadSave.load(crop, current_save).contains("stage=")) {
 			    		
-			    	} 
+					if (gameLoadSave.load(crop, current_save).get(0).replace("stage=", "") == "1") {
+						
+						crop1.setIcon(growth_stage_1);
+						
+						if (gameLoadSave.load(crop, current_save).contains("watered=true")) {
+			
+							crop1.setIcon(growth_stage_1_watered);
+			
+						}
+						
+					}
+			    		
+			    }
+				// sick
+				else if (gameLoadSave.load(crop, current_save).contains("sick=true")) {
+		    						
+												
+			    } 
+				// time left
+				else if (gameLoadSave.load(crop, current_save).contains("time_left=")) {
 					
 					
-				}
+			    } 
+					
+				
+				// duplicate code and change all crop numbers
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				
 				
 				
 				
 			}
+			
 		});
 		
 		

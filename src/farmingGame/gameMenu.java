@@ -69,7 +69,7 @@ public class gameMenu extends JFrame {
 
 				if (slotChosen != -1) {
 					
-					gameMain.current_save = slotChosen++;
+					gameMain.current_save = slotChosen + 1;
 					JOptionPane.showMessageDialog(null, "Save data has been retrieved! Please click the 'reload' button.");
 					
 				}
