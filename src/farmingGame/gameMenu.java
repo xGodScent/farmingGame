@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.awt.TrayIcon.MessageType;
 
 import javax.swing.SwingConstants;
 import javax.swing.JFrame;
@@ -59,11 +60,19 @@ public class gameMenu extends JFrame {
 		menuTextLabel.setBounds(100, 0, 200, 100);
 		contentPane.add(menuTextLabel);
 		
-		JButton loadSaveButton = new JButton("Load Save");
+		JButton loadSaveButton = new JButton("Switch Slot");
 		loadSaveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				JOptionPane.showMessageDialog(null, "Save data has been retrieved! Please click the 'reload' button.");
+				String[] slotOptions = {"Slot 1", "Slot 2", "Slot 3"};
+                int slotChosen = JOptionPane.showOptionDialog(null, "Choose a save slot", "Save Slots", JOptionPane.INFORMATION_MESSAGE, JOptionPane.QUESTION_MESSAGE, null, slotOptions, slotOptions[0]);
+
+				if (slotChosen != -1) {
+					
+					gameMain.current_save = slotChosen++;
+					JOptionPane.showMessageDialog(null, "Save data has been retrieved! Please click the 'reload' button.");
+					
+				}
 							
 			}
 		});

@@ -429,6 +429,12 @@ public class gameMain extends JFrame {
 		btnNewButton.setBounds(613, 49, 100, 23);
 		contentPane.add(btnNewButton);
 		
+		JLabel slotLabel = new JLabel("Save Slot: -1");
+		slotLabel.setForeground(Color.WHITE);
+		slotLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		slotLabel.setBounds(613, 8, 105, 45);
+		contentPane.add(slotLabel);
+		
 		JLabel bgLabel = new JLabel("");
 		bgLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bgLabel.setIcon(new ImageIcon(".\\textures\\bg.png"));
