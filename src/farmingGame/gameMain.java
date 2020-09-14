@@ -22,6 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 // [SETUP]
@@ -76,6 +79,7 @@ public class gameMain extends JFrame {
 		
 		setDefaultCloseOperation(handleClose(0));
 		
+		// handles crop updates
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(128, 128, 0));
@@ -130,7 +134,7 @@ public class gameMain extends JFrame {
 		JLabel showToolLabel = new JLabel("Tool Selected: None");
 		showToolLabel.setForeground(Color.WHITE);
 		showToolLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		showToolLabel.setBounds(233, 31, 276, 39);
+		showToolLabel.setBounds(233, 11, 276, 39);
 		contentPane.add(showToolLabel);
 		
 		JToggleButton btnPlantSeed = new JToggleButton("Plant Seed");
@@ -236,7 +240,9 @@ public class gameMain extends JFrame {
 		crop1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-								
+				
+				crop = 1;
+				
 				if (tool == "seeds" && !tags.contains("seed_planted=true")) {
 					
 					if (crop1.getIcon() == dirt_texture) {
@@ -250,19 +256,19 @@ public class gameMain extends JFrame {
 						crop1.setIcon(dirt_seeds_texture_watered);
 						
 					}					
-					
-					gameLoadSave.save("seed_planted=true", 1, current_save);
-					gameLoadSave.save("stage=0", 1, current_save);
-					gameLoadSave.save("sick=false", 1, current_save);
+									
+					gameLoadSave.save("seed_planted=true", crop, current_save);
+					gameLoadSave.save("stage=0", crop, current_save);
+					gameLoadSave.save("sick=false", crop, current_save);
 					
 				}
 					
-				else if (tool == "water" && !tags.contains("watered=true")) {
+				else if (tool == "water" && gameLoadSave.load(1, current_save).contains("watered=false")) {
 					
 					ImageIcon newTexture = new ImageIcon(String.valueOf(crop1.getIcon()).replace(".png", "_watered.png"));
 					crop1.setIcon(newTexture);
 					
-					gameLoadSave.save("watered=true", 1, current_save);
+					gameLoadSave.save("watered=true", crop, current_save);
 					
 				}			
 				
@@ -416,7 +422,7 @@ public class gameMain extends JFrame {
 		JLabel timeLabel = new JLabel("Time: null");
 		timeLabel.setForeground(Color.WHITE);
 		timeLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		timeLabel.setBounds(613, 30, 105, 45);
+		timeLabel.setBounds(233, 49, 105, 45);
 		contentPane.add(timeLabel);
 		
 		JLabel bgLabel = new JLabel("");
@@ -425,29 +431,29 @@ public class gameMain extends JFrame {
 		bgLabel.setBounds(0, -268, 804, 893);
 		contentPane.add(bgLabel);	
 		
-	}
-	
-	// sets all crop labels to some data
-	public static void applySaveData() {
-		
-		System.out.println("applying data to crops...");
-		
-		gameLoadSave.load(1, gameMain.current_save);
-		gameLoadSave.load(2, gameMain.current_save);
-		gameLoadSave.load(3, gameMain.current_save);
-		gameLoadSave.load(4, gameMain.current_save);
-		
-		if (true) {
-			
-		
-			gameMain.
-			
-			
-			
-		}
-		
-		
-		
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent key) {
+				
+				if (key.getKeyCode() == KeyEvent.VK_R) {
+					
+					gameLoadSave.load(1, current_save);
+					gameLoadSave.load(2, current_save);
+					gameLoadSave.load(3, current_save);
+					gameLoadSave.load(4, current_save);
+					
+					System.out.println(gameLoadSave.load(1, current_save));
+					
+				}
+				
+				else {
+					
+					System.out.println(gameLoadSave.load(2, current_save));
+					
+				}
+				
+			}
+		});
 		
 		
 	}
@@ -469,5 +475,4 @@ public class gameMain extends JFrame {
 		return 0;
 		
 	}
-	
 }

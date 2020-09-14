@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 public class gameMenu extends JFrame {
@@ -42,7 +43,6 @@ public class gameMenu extends JFrame {
 	}
 
 	public gameMenu() {
-		setAlwaysOnTop(true);
 		setTitle("Menu");
 		setType(Type.POPUP);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -63,8 +63,8 @@ public class gameMenu extends JFrame {
 		loadSaveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				gameMain.applySaveData();
-			
+				JOptionPane.showMessageDialog(null, "Save data has been retrieved! Please press F5 in game to apply save data!");
+							
 			}
 		});
 		loadSaveButton.setBounds(150, 110, 100, 25);
