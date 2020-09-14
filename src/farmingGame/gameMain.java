@@ -236,7 +236,7 @@ public class gameMain extends JFrame {
 		crop1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+								
 				if (tool == "seeds" && !tags.contains("seed_planted=true")) {
 					
 					if (crop1.getIcon() == dirt_texture) {
@@ -251,9 +251,9 @@ public class gameMain extends JFrame {
 						
 					}					
 					
-					tags.add("seed_planted=true");
-					tags.add("stage=0");
-					tags.add("sick=false");
+					gameLoadSave.save("seed_planted=true", 1, current_save);
+					gameLoadSave.save("stage=0", 1, current_save);
+					gameLoadSave.save("sick=false", 1, current_save);
 					
 				}
 					
@@ -262,19 +262,9 @@ public class gameMain extends JFrame {
 					ImageIcon newTexture = new ImageIcon(String.valueOf(crop1.getIcon()).replace(".png", "_watered.png"));
 					crop1.setIcon(newTexture);
 					
-					tags.add("watered=true");
+					gameLoadSave.save("watered=true", 1, current_save);
 					
-				}
-					
-				else {
-					
-					System.out.println("crop1_tags: " + tags);
-					
-				}
-				
-				// code to save cropd data to file
-				gameLoadSave.save(tags, 1, current_save);
-				
+				}			
 				
 				tool = "None";
 				showToolLabel.setText("Tool Selected: " + tool);
@@ -433,7 +423,7 @@ public class gameMain extends JFrame {
 		bgLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bgLabel.setIcon(new ImageIcon(".\\textures\\bg.png"));
 		bgLabel.setBounds(0, -268, 804, 893);
-		contentPane.add(bgLabel);
+		contentPane.add(bgLabel);	
 		
 	}
 	
@@ -447,14 +437,10 @@ public class gameMain extends JFrame {
 		gameLoadSave.load(3, gameMain.current_save);
 		gameLoadSave.load(4, gameMain.current_save);
 		
-		// get the list and check all the variables (use .startsWith?)
-		// convert list to string and extract data?	
-		
 		if (true) {
 			
-			System.out.print(false);
 		
-			
+			gameMain.
 			
 			
 			

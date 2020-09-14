@@ -43,20 +43,58 @@ public class gameLoadSave {
 		
 	}
 
-	public static int save(ArrayList<String> data, int crop, int current_save) {
+	public static int save(String tag, int crop, int current_save) {
 		
 		try {
 			
-			FileWriter cropData = new FileWriter(".\\dataStore\\" + current_save + "\\crop" + crop + ".dat");
+			ArrayList<String> data = new ArrayList<String>();
+			
+			FileReader cropFile = new FileReader(".\\dataStore\\" + current_save + "\\crop" + crop + ".dat");
+			
+			
+			try (BufferedReader br = new BufferedReader(cropFile)) {
+				
+			    for(String line; (line = br.readLine()) != null;) {
+			    	
+			    	if (line.startsWith("seed_planted=") && tag.startsWith("seed_planted=")) {
+			    		
+			    		line = line.replace(line, tag);	
+			    		
+			    	}
+			    	else if (line.startsWith("watered=") && tag.startsWith("watered=")) {
+			    		
+			    		line = line.replace(line, tag);	
+			    		
+			    	}
+			    	else if (line.startsWith("stage=") && tag.startsWith("stage=")) {
+			    		
+			    		line = line.replace(line, tag);	
+			    		
+			    	}
+			    	else if (line.startsWith("sick=") && tag.startsWith("sick=")) {
+			    		
+			    		line = line.replace(line, tag);	
+			    		
+			    	}
 
-			for (String toFile: data) {
-				
-				cropData.write(toFile + System.lineSeparator());
-				
-			}
-			
-			cropData.close();	
-			
+			    	
+			    	data.add(line);
+						
+				}
+			    
+			    
+			    FileWriter cropFileW = new FileWriter(".\\dataStore\\" + current_save + "\\crop" + crop + ".dat");
+			    
+			    for (String toFile: data) {
+					
+					cropFileW.write(toFile + System.lineSeparator());
+			    
+			    }
+			    
+			    cropFile.close();
+			    cropFileW.close();	
+
+			}			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
