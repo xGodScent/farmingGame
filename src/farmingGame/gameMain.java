@@ -3,7 +3,8 @@ package farmingGame;
 
 // [LIBS]
 import java.util.ArrayList;
-import java.awt.Dimension;
+import java.util.Random;
+
 import java.awt.EventQueue;
 import java.awt.Toolkit; 
 import java.awt.Color;
@@ -22,14 +23,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 
 // [SETUP]
 public class gameMain extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	public static void main(String[] args) {
@@ -41,15 +40,12 @@ public class gameMain extends JFrame {
 					frame.setTitle("Farming Simulator");
 					frame.setVisible(true);
 					frame.setResizable(false);
-										
-					// centers window
-					Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-			        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
-			        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
-			        frame.setLocation(x, y);
-			        
-			        // code that makes a thread run clock / time
-			        
+					frame.setLocationRelativeTo(null);
+					
+					// [THREAD]
+					Thread clockThread = new Thread(gameClock());
+					clockThread.start();
+												        
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,11 +68,17 @@ public class gameMain extends JFrame {
 	int crop3TimeLeft = 256;
 	int crop4TimeLeft = 256;
 	
+	// random object
+	Random rChance = new Random();
+	
+	// in game time in ticks
+	public static int gameTime = 0;
+	
 	
 	// [WINDOW]
-	public gameMain() {
-		setResizable(false);
+	public gameMain() {		
 		// window setup final
+		setResizable(false);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("New label");
@@ -156,8 +158,7 @@ public class gameMain extends JFrame {
 		JToggleButton fertilizePlant = new JToggleButton("Fertilize");
 		fertilizePlant.setBackground(new Color(160, 82, 45));
 		fertilizePlant.setBounds(613, 333, 100, 75);
-		contentPane.add(fertilizePlant);
-		
+		contentPane.add(fertilizePlant);	
 		
 		// [ACTION LISTENERS]
 		// seeds button
@@ -277,6 +278,25 @@ public class gameMain extends JFrame {
 					gameLoadSave.save("watered=true", crop, current_save);
 					
 				}			
+				
+				else if (tool == "fertilize" && gameLoadSave.load(crop, current_save).contains("seed_planted=true")) {
+					
+					if (rChance.nextInt(10) >= 5) {
+						
+						gameLoadSave.save("sick=true", crop, current_save);
+						
+					}
+					
+					
+					try {
+						
+						crop1TimeLeft = crop1TimeLeft / 2;
+						
+					} catch (Exception e) {
+						crop1TimeLeft = 0;
+					}
+				
+				}
 				
 				tool = "None";
 				showToolLabel.setText("Tool Selected: " + tool);
@@ -560,6 +580,24 @@ public class gameMain extends JFrame {
 			
 		});
 		
+	}
+	
+	public static Runnable gameClock() {
+		
+		while (true) {
+
+			gameTime++;
+			System.out.println("ticks: " + gameTime);
+			
+			if (gameTime >= 500000) {
+				
+				break;
+				
+			}		
+			
+		}
+		
+		return null;
 		
 	}
 	
@@ -580,4 +618,5 @@ public class gameMain extends JFrame {
 		return 0;
 		
 	}
+	
 }

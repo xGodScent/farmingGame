@@ -1,5 +1,5 @@
-seed_planted=false
+seed_planted=true
 stage=0
-sick=false
-watered=false
+sick=true
+watered=true
 time_left=
