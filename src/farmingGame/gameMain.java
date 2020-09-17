@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+import javax.swing.JProgressBar;
 
 
 // [SETUP]
@@ -40,12 +41,12 @@ public class gameMain extends JFrame {
 					frame.setTitle("Farming Simulator");
 					frame.setVisible(true);
 					frame.setResizable(false);
-					frame.setLocationRelativeTo(null);
+					frame.setLocationRelativeTo(null);	
 					
-					// [THREAD]
-					Thread clockThread = new Thread(gameClock());
+					// [THREAD 1]
+					Thread clockThread = new Thread(handleGameUpdates());
 					clockThread.start();
-												        
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -63,10 +64,10 @@ public class gameMain extends JFrame {
 	static int crop = -1;
 	
 	// (in seconds)
-	int crop1TimeLeft = 256;
-	int crop2TimeLeft = 256;
-	int crop3TimeLeft = 256;
-	int crop4TimeLeft = 256;
+	int crop1TimeLeft = Integer.parseInt(gameLoadSave.load(1, current_save).get(gameLoadSave.load(1, current_save).size()-1).replace("time_left=", ""));
+	int crop2TimeLeft = 60;
+	int crop3TimeLeft = 60;
+	int crop4TimeLeft = 60;
 	
 	// random object
 	Random rChance = new Random();
@@ -76,7 +77,7 @@ public class gameMain extends JFrame {
 	
 	
 	// [WINDOW]
-	public gameMain() {		
+	public gameMain() {				
 		// window setup final
 		setResizable(false);
 		getContentPane().setLayout(null);
@@ -97,6 +98,31 @@ public class gameMain extends JFrame {
 		contentPane.setLayout(null);
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\textures\\icon.png"));
+		
+		JProgressBar progress4 = new JProgressBar();
+		progress4.setStringPainted(true);
+		progress4.setBounds(381, 232, 128, 32);
+		contentPane.add(progress4);
+		
+		JProgressBar progress3 = new JProgressBar();
+		progress3.setStringPainted(true);
+		progress3.setBounds(233, 234, 128, 32);
+		contentPane.add(progress3);
+		
+		JProgressBar progress2 = new JProgressBar();
+		progress2.setStringPainted(true);
+		progress2.setBounds(381, 93, 128, 32);
+		contentPane.add(progress2);
+		
+		JProgressBar progress1 = new JProgressBar();
+		progress1.setStringPainted(true);
+		progress1.setBounds(233, 93, 128, 32);
+		contentPane.add(progress1);
+
+		progress1.setVisible(false);
+		progress2.setVisible(false);
+		progress3.setVisible(false);
+		progress4.setVisible(false);
 		
 		
 		// [LABELS]
@@ -305,7 +331,21 @@ public class gameMain extends JFrame {
 				fertilizePlant.setSelected(false);
 				
 			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				
+				progress1.setVisible(true);
+				progress1.setValue(crop1TimeLeft);
+				
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+				progress1.setVisible(false);
+				
+			}
 		});
+		
 		
 		crop2.addMouseListener(new MouseAdapter() {
 			@Override
@@ -582,26 +622,24 @@ public class gameMain extends JFrame {
 		
 	}
 	
-	public static Runnable gameClock() {
+	
+	public static int gameClock() {
 		
-		while (true) {
-
-			gameTime++;
-			System.out.println("ticks: " + gameTime);
-			
-			if (gameTime >= 500000) {
-				
-				break;
-				
-			}		
-			
-		}
+		gameTime++;
+		
+		return gameTime;
+		
+	}
+	
+	public static Runnable handleGameUpdates() {
+		
+		gameClock();
 		
 		return null;
 		
 	}
 	
-	
+
 	// close
 	private int handleClose(int handle) {
 		
@@ -618,5 +656,4 @@ public class gameMain extends JFrame {
 		return 0;
 		
 	}
-	
 }

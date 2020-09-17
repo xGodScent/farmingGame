@@ -1,5 +1,6 @@
 seed_planted=true
 stage=0
-sick=true
+sick=false
 watered=true
-time_left=
+time_left=256
+
