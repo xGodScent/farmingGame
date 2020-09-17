@@ -334,6 +334,7 @@ public class gameMain extends JFrame {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				
+				// on hover
 				progress1.setVisible(true);
 				progress1.setValue(crop1TimeLeft);
 				
@@ -341,6 +342,7 @@ public class gameMain extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				
+				// not hovering
 				progress1.setVisible(false);
 				
 			}
